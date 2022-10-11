@@ -3,13 +3,9 @@ const bookModel = require('../models/bookModel')
 const reviewModel = require("../models/reviewModel")
 
 
-let isValid = mongoose.Types.ObjectId.isValid()
+let isValid = mongoose.Types.ObjectId
 
-const isValidBody = function (value) {
-    if (typeof value === "undefined" || value === null) return false;
-    if (typeof value === "string" && value.trim().length === 0) return false;
-    return true;
-};
+
 
 
 //=====================================================CREATE BOOK ===============================================================================================//
@@ -89,11 +85,11 @@ const createBook = async function (req, res) {
             }
         }
 
-        if (isValidBody(releasedAt)){
+        if (!releasedAt){
              return res.status(400).send({ status: false, msg: "Please Provide releasedAt" })
             }
 
-        let validReleasedAt=moment(`${releasedAt}`,"YYYY-MM-DD")
+        let validReleasedAt=Date(`${releasedAt}`,"YYYY-MM-DD")
         if (validReleasedAt==false)
         return res.status(400).send({ status: false, message: 'releseAt should be in YYYY-MM-DD format.' });
     

@@ -154,7 +154,9 @@ const loginUser = async function (req, res) {
       "project-3//bookmanagemnt-35"
     );
 
-    return res.status(200).send({ status: true, message: "Success", data: { token } });
+    const decode =jwt.decode(token, "project-3//bookmanagemnt-35")
+
+    return res.status(200).send({ status: true, message: "Success", data: {token} , decode });
   } catch (err) {
     return res.status(500).send({ status: false, message: err.message });
   }
